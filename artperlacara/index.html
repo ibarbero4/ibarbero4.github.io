@@ -1,4 +1,13 @@
 
+
+
+function draw() {
+
+  arc (mouseX,mouseY+50,120,40+h,0,PI,CHORD);
+    </script>
+    </body>
+</html>
+}
 <!DOCTYPE html>
 <!-- Indica que el document és HTML5 -->
 <html>
@@ -102,7 +111,7 @@
       // Variable que guardarà la captura de vídeo de la càmera
       
       let modelsMostrats = false;
-      // Variable booleana per controlar si ja s'ha amagat la pantalla de càrrega
+     let mic; // Variable booleana per controlar si ja s'ha amagat la pantalla de càrrega
       
       // Variables per a la mida de la mini imatge de la cara que es mostrarà
       const miniWidth = 120;
@@ -112,7 +121,8 @@
       function setup() {
         // Creem un canvas (llindar per dibuixos) de 600x600 píxels
        // createCanvas(600, 600);
-       
+        mic=new p5.AudioIn();
+  mic.start();
         createCanvas(windowWidth, windowHeight); // Canvi aquí
         
         // Iniciem la captura de vídeo des de la càmera de l'usuari
@@ -222,7 +232,20 @@
         
         // Utilitza una estructura switch per triar el dibuix en funció del sentiment detectat
         switch (dominant) {
-          case "happy":
+          case "happy":  let vol=mic.getLevel();
+  let h=map(vol,0,1,0,1200);
+  background(220);
+  //fill (80);//0 negre 255 blanc i entre mig grisos
+  //fill (255,0,0);//Si hi ha tres números el primer és el nivell de vermell
+  //fill (0,200,0);//El segon número és el nivell de verd de 0 a 255
+  //fill (0,0,255);//El tercer número és el nivell de blau de 0 a 255
+  fill (52,58,106);
+  ellipse (mouseX,mouseY,250,300);//cara
+  //mouseX i mouseY són 200
+  fill (52,106,77);
+  ellipse (mouseX-50,mouseY-50,50,20);//ull esquerra
+  ellipse (mouseX+50,mouseY-50,50,20);//ull dret
+  fill (198,86,72);
             // Cas: expressió "happy" (feliç) → es dibuixen ones radials
             for (let i = 1; i <= 10; i++) {
               // Es recorre des de 1 fins a 10 per dibuixar cercles creixents
